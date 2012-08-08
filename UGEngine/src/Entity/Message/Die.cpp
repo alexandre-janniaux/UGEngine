@@ -1,5 +1,5 @@
-#include <UGEngine/MessageComponents/DieMessage.hpp>
-#include <UGEngine/EntityComponents/Entity.hpp>
+#include <UGEngine/Entity/Message/Die.hpp>
+#include <UGEngine/Entity/Core/Entity.hpp>
 
 namespace uge {
 

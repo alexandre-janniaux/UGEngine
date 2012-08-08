@@ -11,22 +11,22 @@ class MessageHandler;
 class Entity;
 
 template <typename T>
-class EntitySpecialisedMessage  {
+class EntityImpl  {
 public:
 	std::vector<MessageHandler<T>*> getComponents ();
 
 	template <typename U>
-	void addComponent(U& component);
+	void bind(U& component);
 
-	static EntitySpecialisedMessage<T>& get(Entity& entity);
+	static EntityImpl<T>& get(Entity& entity);
 
 private:
-	EntitySpecialisedMessage();
+	EntityImpl();
 
 	std::vector<MessageHandler<T>*> m_messagehandler;
-	static std::map<Entity*, EntitySpecialisedMessage*> m_instances;
+	static std::map<Entity*, EntityImpl*> m_instances;
 };
 
 } // namespace uge
 
-#include <UGEngine/EntityComponents/EntitySpecialisedMessage.ipp>
+#include <UGEngine/Entity/Core/EntityImpl.ipp>

@@ -1,13 +1,19 @@
 #pragma once
 
 #include <UGEngine/Core/Type.hpp>
+#include <UGEngine/Core/DestructionTrigger.hpp>
+#include <UGEngine/Core/NonCopyable.hpp>
+
 
 namespace uge {
+
+template <typename T>
+class MessageHandler;
 
 class Entity;
 
 ////////////////////////////////////////////////////////////
-class Component {
+class Component : public NonCopyable, public DestructionTrigger {
 
 ////////////////////////////////////////////////////////////
 public:
@@ -19,18 +25,21 @@ public:
 	Component (Entity& entity);
 
 	////////////////////////////////////////////////////////////
-	/// Disconnect
-	////////////////////////////////////////////////////////////
-	virtual ~Component();
-
 	Entity& getEntity();
 
 	////////////////////////////////////////////////////////////
 	/// broadcast a message to the owner composant's entity with a message and its parameters
 	////////////////////////////////////////////////////////////
+	template <typename T>
+	void broadcastToEntity(Entity& entity, T& message);
+
 	////////////////////////////////////////////////////////////
-	template <typename T, typename... Args>
-	void broadcastToEntity(Entity& entity, Args... args);
+	template <typename T>
+	void broadcast(T& message);
+
+	////////////////////////////////////////////////////////////
+	template <typename T>
+	void bind(MessageHandler<T>& destination);
 
 ////////////////////////////////////////////////////////////
 private:
@@ -41,4 +50,4 @@ private:
 
 } // namespace uge
 
-#include <UGEngine/EntityComponents/Component.ipp>
+#include <UGEngine/Entity/Core/Component.ipp>

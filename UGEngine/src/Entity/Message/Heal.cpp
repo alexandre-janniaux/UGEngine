@@ -1,4 +1,4 @@
-#include <UGEngine/MessageComponents/HealMessage.hpp>
+#include <UGEngine/Entity/Message/Heal.hpp>
 
 namespace uge {
 

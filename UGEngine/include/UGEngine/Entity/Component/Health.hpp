@@ -2,10 +2,12 @@
 
 #include <UGEngine/Core/Type.hpp>
 
-#include <UGEngine/MessageComponents/DamageMessage.hpp>
-#include <UGEngine/MessageComponents/HealMessage.hpp>
+#include <UGEngine/Entity/Message/Damage.hpp>
+#include <UGEngine/Entity/Message/Heal.hpp>
+#include <UGEngine/Entity/Message/Die.hpp>
 
-#include <UGEngine/EntityComponents/MessageHandler.hpp>
+#include <UGEngine/Entity/Core/MessageHandler.hpp>
+#include <UGEngine/Entity/Core/Component.hpp>
 
 namespace uge {
 
@@ -26,9 +28,9 @@ public:
 	void setMaxHealth (Uint32 value);
 	Uint32 getMaxHealth () const;
  
-	virtual void receive (const DamageMessage& message, Entity& source);
+	virtual void receive (DamageMessage& message, Component* source=nullptr);
 
-	virtual void receive (const HealMessage& message, Entity& source);
+	virtual void receive (HealMessage& message, Component* source=nullptr);
 private:
 	Uint32 	m_health,
 			m_maxHealth;

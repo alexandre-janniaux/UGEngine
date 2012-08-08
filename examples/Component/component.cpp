@@ -1,8 +1,8 @@
 //#include <SFML/Graphics.hpp>
 
-#include <UGEngine/EntityComponents/Entity.hpp>
-#include <UGEngine/ExempleComponents/HealthComponent.hpp>
-#include <UGEngine/MessageComponents/DamageMessage.hpp>
+#include <UGEngine/Entity/Core/Entity.hpp>
+#include <UGEngine/Entity/Component/Health.hpp>
+#include <UGEngine/Entity/Message/Damage.hpp>
 #include <iostream>
 #include <cstdlib>
 
@@ -28,15 +28,17 @@ comp.impulse(0,5.f, 0);
 	uge::components::Health health(entity, 100);	
 	uge::components::Health health2(entity2, 100);	
 
-	entity.addComponent<uge::HealMessage> (health);
-	entity.addComponent<uge::DamageMessage> (health);
+	entity.bind<uge::HealMessage> (health);
+	entity.bind<uge::DamageMessage> (health);
 
-	entity2.addComponent<uge::HealMessage> (health2);
-	entity2.addComponent<uge::DamageMessage> (health2);
+	entity2.bind<uge::HealMessage> (health2);
+	entity2.bind<uge::DamageMessage> (health2);
 
 	std::cout << "Entity life is " << health.getHealth() << std::endl;
 	std::cout << "Ah, entity received an attack" << std::endl;
-	entity.broadcast<uge::DamageMessage>(entity2,10);
+
+	uge::DamageMessage attack(10);
+	entity.broadcast(attack);
 	std::cout << "Entity life is " << health.getHealth() << std::endl;
 	
 

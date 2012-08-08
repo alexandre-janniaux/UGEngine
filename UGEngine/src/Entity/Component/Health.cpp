@@ -1,7 +1,4 @@
-#include <UGEngine/ExempleComponents/HealthComponent.hpp>
-#include <UGEngine/MessageComponents/DamageMessage.hpp>
-#include <UGEngine/MessageComponents/HealMessage.hpp>
-#include <UGEngine/MessageComponents/DieMessage.hpp>
+#include <UGEngine/Entity/Component/Health.hpp>
 
 namespace uge 
 {
@@ -11,8 +8,6 @@ namespace components
 
 Health::Health(Entity& entity, Uint32 health, Uint32 maxHealth) : 
 	Component(entity),
-	MessageHandler<DamageMessage>(entity),
-	MessageHandler<HealMessage>(entity),
 	m_health(health), 
 	m_maxHealth(maxHealth)
 {
@@ -24,7 +19,8 @@ void Health::setHealth (Uint32 value) {
 	this->m_health = value;
 	if (m_health == 0)
 	{
-		broadcastToEntity<DieMessage>(getEntity(), getEntity());
+		DieMessage msg(getEntity());
+		broadcast( msg );
 	}
 }
 
@@ -41,7 +37,7 @@ Uint32 Health::getMaxHealth () const {
 	return this->m_maxHealth;
 }
 
-void Health::receive (const DamageMessage& message, Entity& /*source*/) {
+void Health::receive (DamageMessage& message, Component* /*source*/) {
 	uge::Uint32 damage = message.getDamage();
 	if (this->m_health < damage)
 		this->setHealth(0);
@@ -49,13 +45,12 @@ void Health::receive (const DamageMessage& message, Entity& /*source*/) {
 		this->setHealth(this->m_health - damage);
 }
 
-void Health::receive (const HealMessage& message, Entity& /*source*/) {
+void Health::receive (HealMessage& message, Component* /*source*/) {
 	uge::Uint32 heal = message.getHeal();
 	if (this->m_health + heal > this->m_maxHealth)
 		setHealth(this->m_maxHealth);
 	else
 		setHealth(this->m_health + heal);
-
 }
 
 } // namespace components

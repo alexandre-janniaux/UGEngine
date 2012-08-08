@@ -1,4 +1,4 @@
-#include <UGEngine/MessageComponents/DamageMessage.hpp>
+#include <UGEngine/Entity/Message/Damage.hpp>
 
 namespace uge {
 

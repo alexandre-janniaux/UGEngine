@@ -2,13 +2,17 @@ Project (UGEngine)
 
 set(
 	UGE_SOURCES
-	src/EntityComponents/Component.cpp
-	src/EntityComponents/Entity.cpp
-	src/ExempleComponents/HealthComponent.cpp
+	src/Core/DestructionTrigger.cpp
 
-	src/MessageComponents/DamageMessage.cpp
-	src/MessageComponents/HealMessage.cpp
-	src/MessageComponents/DieMessage.cpp
+	src/Entity/Core/Component.cpp
+	src/Entity/Core/Entity.cpp
+
+	src/Entity/Component/Health.cpp
+
+	src/Entity/Message/Damage.cpp
+	src/Entity/Message/Heal.cpp
+	src/Entity/Message/Die.cpp
+	src/Entity/Message/Update.cpp
 )
 
 add_library(
