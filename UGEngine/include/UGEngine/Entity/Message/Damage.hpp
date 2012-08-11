@@ -1,18 +1,13 @@
 #pragma once
 
 #include <UGEngine/Core/Type.hpp>
+#include <UGEngine/Entity/Message/Value.hpp>
 
 namespace uge {
 
-class DamageMessage {
-public:
-	DamageMessage(uge::Uint32 damage);
-
-	uge::Uint32 getDamage() const;
-
-private:
-	uge::Uint32 m_damage;
-
+template <typename T>
+struct DamageMessage : public ValueMessage <T> {
+	DamageMessage(T value) : ValueMessage<T>(value){};
 };
 
 }

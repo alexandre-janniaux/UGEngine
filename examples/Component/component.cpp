@@ -25,19 +25,19 @@ comp.impulse(0,5.f, 0);
 	uge::Entity entity("my_entity");
 	uge::Entity entity2("other_entity");
 	
-	uge::components::Health health(entity, 100);	
-	uge::components::Health health2(entity2, 100);	
+	uge::component::Health<uge::Uint32> health(entity, 100);	
+	uge::component::Health<uge::Uint32> health2(entity2, 100);	
 
-	entity.bind<uge::HealMessage> (health);
-	entity.bind<uge::DamageMessage> (health);
+	entity.bind<uge::HealMessage<uge::Uint32>> (health);
+	entity.bind<uge::DamageMessage<uge::Uint32>> (health);
 
-	entity2.bind<uge::HealMessage> (health2);
-	entity2.bind<uge::DamageMessage> (health2);
+	entity2.bind<uge::HealMessage<uge::Uint32>> (health2);
+	entity2.bind<uge::DamageMessage<uge::Uint32>> (health2);
 
 	std::cout << "Entity life is " << health.getHealth() << std::endl;
 	std::cout << "Ah, entity received an attack" << std::endl;
 
-	uge::DamageMessage attack(10);
+	uge::DamageMessage<uge::Uint32> attack(10);
 	entity.broadcast(attack);
 	std::cout << "Entity life is " << health.getHealth() << std::endl;
 	
@@ -47,7 +47,7 @@ comp.impulse(0,5.f, 0);
 	{
 	    while (window.pollEvent(event))
 	    {
-	        if (event.type == sf:::Event::Closed)
+	        if (event.type == sf::Event::Closed)
 	            window.close();
 	    }
 	    

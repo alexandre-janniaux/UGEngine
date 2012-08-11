@@ -13,29 +13,34 @@ namespace uge {
 
 class Entity;
 
-namespace components {
+namespace component {
 
+template <typename T>
 class Health : 	public Component, 
-				public MessageHandler<DamageMessage>, 
-				public MessageHandler<HealMessage>
+				public MessageHandler<DamageMessage<T>>, 
+				public MessageHandler<HealMessage<T>>
 {
 public:	
-	Health (Entity& entity, Uint32 health=0, Uint32 maxHealth=0);
+	Health (Entity& entity, T health=0, T maxHealth=0);
 
-	void setHealth (Uint32 value);
-	Uint32 getHealth() const;
+	void setHealth (T value);
+	T getHealth() const;
 
-	void setMaxHealth (Uint32 value);
-	Uint32 getMaxHealth () const;
+	void setMaxHealth (T value);
+	T getMaxHealth () const;
  
-	virtual void receive (DamageMessage& message, Component* source=nullptr);
+	virtual void receive (DamageMessage<T>& message, Component* source=nullptr);
 
-	virtual void receive (HealMessage& message, Component* source=nullptr);
+	virtual void receive (HealMessage<T>& message, Component* source=nullptr);
 private:
-	Uint32 	m_health,
+	T 		m_health,
 			m_maxHealth;
 };
 
-} // namespace components
+} // namespace component
 
 } // namespace uge
+
+
+#include <UGEngine/Entity/Component/Health.ipp>
+

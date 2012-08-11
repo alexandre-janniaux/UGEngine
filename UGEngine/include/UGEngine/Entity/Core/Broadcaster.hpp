@@ -6,18 +6,24 @@
 namespace uge {
 
 class Component;
+class Entity;
 
 template <typename T>
 class Broadcaster : public MessageHandler<T> {
 public:
 	void bind(MessageHandler<T>& destination);
+	void bind(Entity& destination);
 
-	void broadcast(T& message);
+	void unbind(const MessageHandler<T>& destination);
+	void unbind(const Entity& destination);
 
-	virtual void receive (T& message, Component* component);
+	void broadcast(T& message, Component* component=nullptr);
+
+	virtual void receive (T& message, Component* component=nullptr);
 
 private:
 	std::vector<MessageHandler<T>*> m_listeners;
+	std::vector<Entity*> m_entities;
 };
 
 }

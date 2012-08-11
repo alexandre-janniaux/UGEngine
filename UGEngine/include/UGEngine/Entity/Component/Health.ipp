@@ -5,8 +5,9 @@ namespace uge
 
 namespace component
 {
-
-Health::Health(Entity& entity, Uint32 health, Uint32 maxHealth) : 
+ 
+template <typename T>
+Health<T>::Health(Entity& entity, T health, T maxHealth) : 
 	Component(entity),
 	m_health(health), 
 	m_maxHealth(maxHealth)
@@ -15,38 +16,44 @@ Health::Health(Entity& entity, Uint32 health, Uint32 maxHealth) :
 		m_maxHealth = m_health;
 }
 
-void Health::setHealth (Uint32 value) {
+template <typename T>
+void Health<T>::setHealth (T value) {
 	this->m_health = value;
 	if (m_health == 0)
 	{
-		DieMessage msg(getEntity());
+		DieMessage<Entity&> msg(getEntity());
 		broadcast( msg );
 	}
 }
 
-Uint32 Health::getHealth() const { 
+template <typename T>
+T Health<T>::getHealth() const { 
 	return this->m_health;
 }
 
 
-void Health::setMaxHealth (Uint32 value) {
+template <typename T>
+void Health<T>::setMaxHealth (T value) {
 	this->m_maxHealth = value;
 }
 
-Uint32 Health::getMaxHealth () const {
+template <typename T>
+T Health<T>::getMaxHealth () const {
 	return this->m_maxHealth;
 }
 
-void Health::receive (DamageMessage& message, Component* /*source*/) {
-	uge::Uint32 damage = message.getDamage();
+template <typename T>
+void Health<T>::receive (DamageMessage<T>& message, Component* /*source*/) {
+	T damage = message.getValue();
 	if (this->m_health < damage)
 		this->setHealth(0);
 	else
 		this->setHealth(this->m_health - damage);
 }
 
-void Health::receive (HealMessage& message, Component* /*source*/) {
-	uge::Uint32 heal = message.getHeal();
+template <typename T>
+void Health<T>::receive (HealMessage<T>& message, Component* /*source*/) {
+	T heal = message.getValue();
 	if (this->m_health + heal > this->m_maxHealth)
 		setHealth(this->m_maxHealth);
 	else

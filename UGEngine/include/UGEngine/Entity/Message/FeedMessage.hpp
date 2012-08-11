@@ -5,8 +5,8 @@
 namespace uge {
 
 template <typename T>
-struct UpdateMessage : public ValueMessage<T> {
-	UpdateMessage(T value) : ValueMessage<T>(value){};
+struct FeedMessage : public ValueMessage<T> {
+	FeedMessage(T value) : ValueMessage<T>(value){};
 };
 
 }

@@ -1,18 +1,13 @@
 #pragma once
 
 #include <UGEngine/Core/Type.hpp>
+#include <UGEngine/Entity/Message/Value.hpp>
 
 namespace uge {
 
-class HealMessage {
-public:
-	HealMessage(uge::Uint32 health);
-
-	uge::Uint32 getHeal() const;
-
-private:
-	uge::Uint32 m_heal;
-
+template <typename T>
+struct HealMessage : public ValueMessage<T> {
+	HealMessage(T value) : ValueMessage<T>(value){};
 };
 
 } // namespace uge

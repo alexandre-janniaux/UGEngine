@@ -11,7 +11,8 @@ class Entity {
 public:
 
 	Entity(const std::string& name="");
-
+	virtual ~Entity();
+	
 	template <typename T>
 	void broadcast (T& message, Component* Component=nullptr);	
 

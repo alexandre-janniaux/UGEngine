@@ -1,18 +1,12 @@
 #pragma once
 
+#include <UGEngine/Entity/Message/Value.hpp>
+
 namespace uge {
 
-class Entity;
-
-class DieMessage {
-public:
-	DieMessage(Entity& entity);
-
-	Entity& getEntity();
-
-private:
-	Entity& m_entity;
-
+template <typename T>
+struct DieMessage : public ValueMessage <T> {
+	DieMessage(T value) : ValueMessage<T>(value) {}
 };
 
 } // namespace uge

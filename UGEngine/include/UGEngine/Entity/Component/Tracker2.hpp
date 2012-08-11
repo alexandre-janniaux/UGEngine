@@ -6,7 +6,7 @@
 
 namespace uge {
 
-namespace components {
+namespace component {
 
 class Tracker2 :
 	public Component,
@@ -27,6 +27,6 @@ private:
 };
 
 
-}
+} // namespace component
 
-}
+} // namespace uge
