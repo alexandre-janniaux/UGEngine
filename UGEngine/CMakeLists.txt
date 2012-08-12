@@ -14,3 +14,15 @@ add_library(
 	SHARED
 	${UGE_SOURCES}
 )
+
+install(
+	TARGETS UGEngine
+	RUNTIME DESTINATION bin
+  	LIBRARY DESTINATION lib
+  	ARCHIVE DESTINATION lib
+)
+
+install(
+	DIRECTORY include/UGEngine
+	DESTINATION include	
+)

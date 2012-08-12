@@ -6,12 +6,14 @@
 #include <UGEngine/Entity/Core/MessageHandler.hpp>
 
 #include <UGEngine/Entity/Message/Value.hpp>
+#include <UGEngine/Entity/Message/Ask.hpp>
 
 #include <map>
 
 namespace uge {
 	
 class Entity;
+class ThreatMessage;
 
 namespace component {
 	

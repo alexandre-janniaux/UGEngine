@@ -4,41 +4,41 @@
 namespace uge {
 
 template <typename T>
-void Broadcaster::bind(MessageHandler<T>& destination) {
+void Broadcaster<T>::bind(MessageHandler<T>& destination) {
 	this->m_listeners.push_back(&destination);
 }
 
 template <typename T>
-void Broadcaster::bind(Entity& entity) {
+void Broadcaster<T>::bind(Entity& entity) {
 	this->m_entities.push_back(&entity);
 }
 
 template <typename T>
-void Broadcaster::unbind(MessageHandler<T>& destination) {
+void Broadcaster<T>::unbind(const MessageHandler<T>& destination) {
 	auto ptr = this->m_listeners.find(&destination);
 	if (ptr != this->m_listeners.end())
 		this->m_listeners.erase(ptr);
 }
 
 template <typename T>
-void Broadcaster::unbind(Entity& entity) {
+void Broadcaster<T>::unbind(const Entity& entity) {
 	auto ptr = this->m_entities.find(&entity);
 	if (ptr != this->m_entities.end())
 		this->m_entities.erase(ptr);
 }
 
 template <typename T>
-void Broadcaster::broadcast(T& message, Component* component) {
+void Broadcaster<T>::broadcast(T& message, Component* component) {
 	for(auto listener : this->m_listeners)
 		listener->receive(message, component);
 
 	for(auto entity : this->m_entities)
-		entity->broadcast(message, component)
+		entity->broadcast(message, component);
 
 }
 
 template <typename T>
-void receive (T& message, Component* component) {
+void Broadcaster<T>::receive (T& message, Component* component) {
 	this->broadcast(message, component);
 }
 
