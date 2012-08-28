@@ -43,7 +43,7 @@ T Health<T>::getMaxHealth () const {
 }
 
 template <typename T>
-void Health<T>::receive (DamageMessage<T>& message, Component* /*source*/) {
+void Health<T>::receive (DamageMessage<T>& message) {
 	T damage = message.getValue();
 	if (this->m_health < damage)
 		this->setHealth(0);
@@ -52,7 +52,7 @@ void Health<T>::receive (DamageMessage<T>& message, Component* /*source*/) {
 }
 
 template <typename T>
-void Health<T>::receive (HealMessage<T>& message, Component* /*source*/) {
+void Health<T>::receive (HealMessage<T>& message) {
 	T heal = message.getValue();
 	if (this->m_health + heal > this->m_maxHealth)
 		setHealth(this->m_maxHealth);

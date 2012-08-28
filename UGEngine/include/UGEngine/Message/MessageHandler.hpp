@@ -2,15 +2,18 @@
 
 namespace uge {
 
-class Component;
 
+////////////////////////////////////////////////////////////
+/// Base class to receive messages
+////////////////////////////////////////////////////////////
 template <typename T>
 class MessageHandler  {
 public:
 	////////////////////////////////////////////////////////////
 	/// Receive a message : you need to override this function in order to get message 
+	/// @param message : the message you will receive
 	////////////////////////////////////////////////////////////
-	virtual void receive(T& message, Component* source=nullptr)=0;
+	virtual void receive(T& message)=0;
 
 private:
 };

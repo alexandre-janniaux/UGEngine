@@ -1,7 +1,6 @@
 #pragma once
 
 #include <UGEngine/Entity/Core/Entity.hpp>
-#include <UGEngine/Entity/Core/ComponentImpl.hpp>
 #include <UGEngine/Entity/Core/MessageHandler.hpp>
 
 namespace uge {

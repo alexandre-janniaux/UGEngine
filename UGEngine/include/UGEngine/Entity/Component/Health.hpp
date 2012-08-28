@@ -6,7 +6,7 @@
 #include <UGEngine/Entity/Message/Heal.hpp>
 #include <UGEngine/Entity/Message/Die.hpp>
 
-#include <UGEngine/Entity/Core/MessageHandler.hpp>
+#include <UGEngine/Message/MessageHandler.hpp>
 #include <UGEngine/Entity/Core/Component.hpp>
 
 namespace uge {
@@ -29,9 +29,9 @@ public:
 	void setMaxHealth (T value);
 	T getMaxHealth () const;
  
-	virtual void receive (DamageMessage<T>& message, Component* source=nullptr);
+	virtual void receive (DamageMessage<T>& message);
 
-	virtual void receive (HealMessage<T>& message, Component* source=nullptr);
+	virtual void receive (HealMessage<T>& message);
 private:
 	T 		m_health,
 			m_maxHealth;

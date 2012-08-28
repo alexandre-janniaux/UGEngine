@@ -3,17 +3,17 @@
 #include <UGEngine/Core/Type.hpp>
 #include <UGEngine/Core/DestructionTrigger.hpp>
 #include <UGEngine/Core/NonCopyable.hpp>
-
+#include <UGEngine/Message/MessageSender.hpp>
 
 namespace uge {
-
-template <typename T>
-class MessageHandler;
 
 class Entity;
 
 ////////////////////////////////////////////////////////////
-class Component : public NonCopyable, public DestructionTrigger {
+class Component :
+    public NonCopyable,
+    public MessageSender
+{
 
 ////////////////////////////////////////////////////////////
 public:
@@ -27,20 +27,6 @@ public:
 	////////////////////////////////////////////////////////////
 	Entity& getEntity();
 
-	////////////////////////////////////////////////////////////
-	/// broadcast a message to the owner composant's entity with a message and its parameters
-	////////////////////////////////////////////////////////////
-	template <typename T>
-	void broadcastToEntity(Entity& entity, T& message);
-
-	////////////////////////////////////////////////////////////
-	template <typename T>
-	void broadcast(T& message);
-
-	////////////////////////////////////////////////////////////
-	template <typename T>
-	void bind(MessageHandler<T>& destination);
-
 ////////////////////////////////////////////////////////////
 private:
 ////////////////////////////////////////////////////////////
@@ -50,4 +36,3 @@ private:
 
 } // namespace uge
 
-#include <UGEngine/Entity/Core/Component.ipp>

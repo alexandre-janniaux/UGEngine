@@ -3,21 +3,29 @@
 #include <string>
 #include <vector>
 
+#include <UGEngine/Message/MessageSender.hpp>
+
 namespace uge {
 
 class Component;
 
-class Entity {
+////////////////////////////////////////////////////////////
+class Entity : 
+    public MessageSender
+{
+////////////////////////////////////////////////////////////
 public:
+////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////
 	Entity(const std::string& name="");
-	virtual ~Entity();
 	
-	template <typename T>
-	void broadcast (T& message, Component* Component=nullptr);	
+	////////////////////////////////////////////////////////////
+	virtual ~Entity();
 
-	template <typename Msg, typename T>
-	void bind(T& component);
+    ////////////////////////////////////////////////////////////
+//	template <typename Msg>
+//	void bind(Component& component);
 
 private:
 

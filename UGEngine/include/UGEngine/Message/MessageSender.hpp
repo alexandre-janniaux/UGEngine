@@ -1,0 +1,50 @@
+#pragma once
+
+#include <UGEngine/Core/DestructionTrigger.hpp>
+#include <iostream>
+
+namespace uge {
+
+////////////////////////////////////////////////////////////	
+template <typename Msg>	
+class MessageHandler;
+
+////////////////////////////////////////////////////////////
+/// Base class to send message
+/// @seealso MessageHandler
+////////////////////////////////////////////////////////////
+class MessageSender :
+    public DestructionTrigger<MessageSender>
+{
+////////////////////////////////////////////////////////////
+public:
+////////////////////////////////////////////////////////////
+
+    MessageSender() : DestructionTrigger<MessageSender>(*this) {}
+
+    ////////////////////////////////////////////////////////////
+    /// Bind a MessageHandler as a message listener
+    /// @param handler : the MessageHandler to bind
+    ////////////////////////////////////////////////////////////
+	template <typename Msg>
+	void bind (MessageHandler<Msg>& handler);
+
+    ////////////////////////////////////////////////////////////	
+    /// Unbind a MessageHandler to stop listening message
+    /// @param handler : the MessageHandler to unbind
+    ////////////////////////////////////////////////////////////
+	template <typename Msg>
+	void unbind (MessageHandler<Msg>& handler);
+
+    ////////////////////////////////////////////////////////////
+    /// Broadcast a message to listening MessageHandler
+    /// @param message : the message to broadcast
+    ////////////////////////////////////////////////////////////
+	template <typename Msg>
+	void broadcast (Msg& message);
+
+};
+
+} // namespace uge
+
+#include <UGEngine/Message/MessageSender.ipp>
